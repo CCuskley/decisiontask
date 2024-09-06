@@ -1,0 +1,10 @@
+.btn-custom {
+  color: #fff;/*specifies the font color (white)*/
+  background-color: #F8BB00;/*specifies button color*/
+  border-color: #F8BB00;/*specifies button border color*/
+}
+.btn-custom:hover { /*as above, but only when the mouse is hovering over the button, it changes the colour*/
+  color: #fff;
+  background-color: #E0A800;
+  border-color: #E0A800;
+}

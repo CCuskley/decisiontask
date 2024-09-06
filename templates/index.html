@@ -1,0 +1,145 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8" />  
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Language Experiment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/mystyle.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/mylogo.png') }}">
+
+</head>
+<html>
+   <body>
+     <main>
+        <div class="wrapper" id="formWrapper">
+            <div class="px-4 py-3 my-2 text-center">
+                <img class="d-block mx-auto mb-4" src="{{ url_for('static', filename='images/mylogo.svg') }}" alt="Language Experiments Logo" width="192" height="192"/>
+                <h1 class="display-6 fw-bold text-secondary">Welcome to my experiment</h1>
+                <p class="lead">Basic information about the task relevant to informed consent can be displayed here. This should include things like the names of the researchers, how long the task will take, whether participants will be paid, what kind of data you're collecting (particularly identifying information), where data will be stored, who will have access to it, and whether it will be made publicly available.</p>          
+            </div>
+           <div class="col-md-6 mx-auto text-center">
+                <label for="consent" class="form-label fw-bold fs-5">Clicking below indicates that you consent to the conditions outlined above and agree to participate. If you don't want to participate, simply close the window. No data has been collected.</label>
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                    <button id = "agreeConsent" class="btn btn-custom btn-lg px-4 gap-3">Agree</button>
+                </div>            
+            </div>
+        </div>
+        <div id="instructions" style="display:none">
+            <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light humanTestPrompt">
+                <div class="col-md-8 p-lg-8 mx-auto my-8">
+                    <h1 class="display-4 font-weight-normal">Thanks for taking part</h1>
+                    <p class="lead font-weight-normal">We're investigating what people know about rare animal names. First, this is the internet, and we have to make sure you're a genuine human. Follow the instructions below carefully.</p>
+                </div>
+            </div>
+            <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 bg-light humanTestPrompt">
+                    <div class="col-md-8 p-lg-8 mx-auto my-8">
+                        <ul>
+                            <li>Below, enter the second word in this sentence, followed by the number of times the letter 'r' appears in the word "strawberry".</li>
+                                <li>Don't use any punctuation.</li>
+                                <li>You can use either digits or the the written form of the number.</li>
+                            </ul>
+
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="humantest">
+                        </div>
+                        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                            <a href="#" id="checkHuman" class="btn btn-outline-secondary gap-3">Check</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 bg-light humanError" style="display:none">
+                <div class="col-md-8 p-lg-8 mx-auto my-8">
+                    <h1 class="display-4 font-weight-normal">Sorry</h1>
+                    <p class="lead font-weight-normal">I don't mean to be rude, but you don't seem human. If you think this is an error, you can refresh the page and try again.</p>
+                </div>
+            </div>
+            <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 bg-light taskInstructions" id="taskPrompt" style="display:none">
+                <div class="col-md-8 p-lg-8 mx-auto my-8">
+                    <h1 class="display-4 font-weight-normal text-center">Nicely done, human!</h1>
+                    <p class="fs-6">This is where you might ask for some additional info like age, language background, etc.</p>
+                    <p class="lead font-weight-normal">Here's some info on how the task will work.</p>
+                    <p>You'll see a word, and your job is to decide whether it's the name of a real animal or not. Press <b><span class="realAnimalButton">D</span></b> if you think it's a real animal, and <b><span class="notAnimalButton">K</span></b> if you don't think so. If you're not sure, just make a guess!</p>
+                    <p>Try an easy one below to get started:</p>
+                </div>
+            </div>
+            <div class="position-relative overflow-hidden text-center p-3 p-md-5 m-md-3 bg-light taskInstructions" style="display:none">
+                <div class="col-md-8 p-lg-8 mx-auto my-8">
+                    <h2 class="display-4 font-weight normal">Is this a real animal?</h2>
+                    <p class="fs-6">Press <b><span class="realAnimalButton">D</span></b> if you think it's a real animal, and <b><span class="notAnimalButton">K</span></b> if you don't think so.</p>
+                    <h1 class="display-4 fw-bold">tiger</h1>
+                </div>
+            </div>
+            <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 bg-light goodTiger" style="display:none">
+                <div class="col-md-8 p-lg-8 mx-auto my-8">
+                    <h1 class="display-4 font-weight-normal text-center">Pretty good!</h1>
+                    <p class="lead font-weight-normal">Now we'll do some that are a bit harder. Press <b><span class="realAnimalButton">D</span></b> if you think it's a real animal, and <b><span class="notAnimalButton">K</span></b> if you don't think so. If you're not sure, just make a guess!</p>
+                    <p>Click 'Start' below to get going:</p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                        <a href="#" class="startTask btn btn-info gap-3">Start</a>
+                    </div>
+                </div>
+            </div>
+            <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 bg-light badTiger" style="display:none">
+                <div class="col-md-8 p-lg-8 mx-auto my-8">
+                    <h1 class="display-4 font-weight-normal text-center">Well, not quite...</h1>
+                    <p class="lead font-weight-normal">A tiger is an animal, but you get the idea. Now we'll do some that are a bit harder. Press <b><span class="realAnimalButton">D</span></b> if you think it's a real animal, and <b><span class="notAnimalButton">K</span></b> if you don't think so. If you're not sure, just make a guess!</p>
+                    <p>Click 'Start' below to get going:</p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                        <a href="#" class="startTask btn btn-info gap-3">Start</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="mainTask" style="display:none">
+            <div class="position-relative overflow-hidden text-center p-3 p-md-5 m-md-3 bg-light">
+                <div class="col-md-8 p-lg-8 mx-auto my-8">
+                    <h2 class="display-4 font-weight normal">Is this a real animal?</h2>
+                    <p class="fs-6">Press <b><span class="realAnimalButton">D</span></b> if you think it's a real animal, and <b><span class="notAnimalButton">K</span></b> if you don't think so.</p>
+                    <h1 class="display-4 fw-bold"><span id="currentTarget"></span></h1>
+                </div>
+            </div>
+        </div>
+        <div id="endTask" style="display:none">
+            <div class="position-relative overflow-hidden text-center p-3 p-md-5 m-md-3 bg-light">
+                <div class="col-md-8 p-lg-8 mx-auto my-8">
+                <h1 class="display-4 font-weight-normal text-center">That's everything!</h1>
+                    <p class="lead font-weight-normal">Thanks for taking part. Want to know your score?</p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+                        <a href="#" class="showScore btn btn-success gap-3">Show Score</a>
+                    </div>
+                </div>
+            </div>
+            <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 bg-light" id="animalAnswers" style="display:none">
+                <div class="row">
+                    <div class="col-md-8 p-lg-8 mx-auto my-8 text-center">
+                    <h1 class="display-4 font-weight-normal">Your Score</h1>
+                    <p class="lead font-weight-normal">You got <b><span id="numRight"></span>/<span id="numStims"></span></b> correct, or about <b><span id="propRight"></span>%</b>. Nicely done. The answers are below.</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 p-lg-6 mx-auto my-6">
+                        <p class="fs-5"><b>Real animals:</b> 
+                            <ul>
+                                <span id="realAnimalList"></span>
+                            </ul>
+                        </p>
+                    </div>
+                    <div class="col-md-6 p-lg-6 mx-auto my-6">
+                        <p class="fs-5"><b>Nonsense words:</b> 
+                            <ul>
+                                <span id="fakeAnimalList"></span>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     </main>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+     <script src="https://cdn.socket.io/4.7.5/socket.io.min.js" integrity="sha384-2huaZvOR9iDzHqslqwpR87isEmrfxqyWOF7hr7BY6KG0+hVKLoEXMPUJw3ynWuhO" crossorigin="anonymous"></script>
+     <script src="{{url_for('static', filename='js/main.js')}}"></script>
+   </body>
+</html>
